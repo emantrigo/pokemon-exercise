@@ -1,13 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import Home from './routes/Home';
+import Favorites from './routes/Favorites';
+import Error from './routes/Error';
 import reportWebVitals from './reportWebVitals';
+import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
+import Pokemon from './routes/Pokemon';
+import Navbar from './components/Navbar';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />,
+    children: [],
+  },
+  {
+    path: 'favorites',
+    element: <Favorites />,
+  },
+
+  {
+    path: 'pokemon/:id',
+    element: <Pokemon />,
+    errorElement: <Error />,
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Navbar></Navbar>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
