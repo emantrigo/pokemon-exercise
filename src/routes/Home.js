@@ -4,6 +4,7 @@ import api from '../lib/http';
 import PokemonCard from '../components/PokemonCard';
 
 import '../index.css';
+import Navbar from '../components/Navbar';
 
 function Home() {
   const [pokemons, setPokemons] = useState([]);
@@ -42,13 +43,13 @@ function Home() {
             <div className='flex gap-4 items-center justify-center'>
               {offset !== 0 && (
                 <button
-                  className='bg-blueDark p-2 rounded border-yellowLight border-4 text-white'
+                  className='bg-yellowLight p-2 rounded-md  text-blueDark'
                   onClick={() => setOffset(offset - limit)}>
                   Previous
                 </button>
               )}
               <button
-                className='bg-blueDark p-2 rounded border-yellowLight border-4 text-white'
+                className='bg-yellowLight p-2 rounded-md  text-blueDark'
                 onClick={() => setOffset(offset + limit)}>
                 Next
               </button>

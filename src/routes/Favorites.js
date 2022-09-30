@@ -22,7 +22,7 @@ function Favorites() {
   return (
     <div className='m-0 flex  items-center flex-wrap justify-center'>
       {favorites.map((favorite) => (
-        <PokemonCard url={`/pokemon/${favorite}`} />
+        <PokemonCard url={`/pokemon/${favorite}`} key={favorite} />
       ))}
     </div>
   );

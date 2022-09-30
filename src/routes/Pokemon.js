@@ -77,20 +77,24 @@ function Pokemon() {
             </p>
 
             <p className='font-bold'>Stats:</p>
-            {pokemon.stats.map((stat) => (
-              <p className='ml-5 capitalize'>
+            {pokemon.stats.map((stat, idx) => (
+              <p className='ml-5 capitalize' key={idx}>
                 - {stat.stat.name}: {stat.base_stat}
               </p>
             ))}
           </div>
           <div>
             <p className='font-bold'>Abilities:</p>
-            {pokemon.abilities.map((ability) => (
-              <p className='ml-5 capitalize'>- {ability.ability.name}</p>
+            {pokemon.abilities.map((ability, idx) => (
+              <p className='ml-5 capitalize' key={idx}>
+                - {ability.ability.name}
+              </p>
             ))}
             <p className='font-bold'>Types:</p>
-            {pokemon.types.map((type) => (
-              <p className='ml-5 capitalize'>- {type.type.name}</p>
+            {pokemon.types.map((type, idx) => (
+              <p className='ml-5 capitalize' key={idx}>
+                - {type.type.name}
+              </p>
             ))}
           </div>
         </div>

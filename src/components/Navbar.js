@@ -1,56 +1,94 @@
-import React from 'react';
+/* This example requires Tailwind CSS v2.0+ */
+import { Disclosure } from '@headlessui/react';
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
-function Navbar() {
-  return (
-    <nav className=' bg-blueLight px-2 sm:px-4 py-2.5'>
-      <div className='container flex flex-wrap justify-between items-center mx-auto'>
-        <a href='/' className='flex items-center'>
-          <img
-            src='https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png'
-            className='mr-3 h-6 sm:h-9'
-            alt='Flowbite Logo'
-          />
-        </a>
-        <button
-          data-collapse-toggle='navbar-default'
-          type='button'
-          className='inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200'
-          aria-controls='navbar-default'
-          aria-expanded='false'>
-          <svg
-            className='w-6 h-6'
-            aria-hidden='true'
-            fill='#ffcb05'
-            viewBox='0 0 20 20'
-            xmlns='http://www.w3.org/2000/svg'>
-            <path
-              fill-rule='evenodd'
-              d='M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z'
-              clip-rule='evenodd'></path>
-          </svg>
-        </button>
-        <div className='hidden w-full md:block md:w-auto' id='navbar-default'>
-          <ul className='flex flex-col p-4 mt-4border md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 '>
-            <li>
-              <a
-                href='/'
-                className='block font-bold py-2 pr-4 pl-3 text-white rounded md:bg-transparent md:p-0  md:hover:text-yellowLight '
-                aria-current='page'>
-                Home
-              </a>
-            </li>
-            <li>
-              <a
-                href='/favorites'
-                className='block font-bold py-2 pr-4 pl-3 text-white roundedmd:hover:bg-transparent md:border-0 md:hover:text-yellowLight md:p-0'>
-                Favorites
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  );
+const navigation = [
+  { name: 'Home', href: '/', current: window.location.pathname === '/' },
+  {
+    name: 'Favorites',
+    href: '/favorites',
+    current: window.location.pathname === '/favorites',
+  },
+];
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
 }
 
-export default Navbar;
+export default function Example() {
+  return (
+    <Disclosure as='nav' className='bg-blueDark'>
+      {({ open }) => (
+        <>
+          <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
+            <div className='relative flex h-16 items-center justify-between'>
+              <div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
+                {/* Mobile menu button*/}
+                <Disclosure.Button className='inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'>
+                  <span className='sr-only'>Open main menu</span>
+                  {open ? (
+                    <XMarkIcon className='block h-6 w-6' aria-hidden='true' />
+                  ) : (
+                    <Bars3Icon className='block h-6 w-6' aria-hidden='true' />
+                  )}
+                </Disclosure.Button>
+              </div>
+              <div className='flex flex-1 items-center justify-center sm:items-stretch sm:justify-between'>
+                <div className='flex flex-shrink-0 items-center'>
+                  <img
+                    className='block h-8 w-auto lg:hidden'
+                    src='https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png'
+                    alt='Your Company'
+                  />
+                  <img
+                    className='hidden h-8 w-auto lg:block'
+                    src='https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png'
+                    alt='Your Company'
+                  />
+                </div>
+                <div className='hidden sm:ml-6 sm:block'>
+                  <div className='flex space-x-4'>
+                    {navigation.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className={classNames(
+                          item.current
+                            ? 'bg-gray-900 text-white'
+                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          'px-3 py-2 rounded-md text-sm font-medium'
+                        )}
+                        aria-current={item.current ? 'page' : undefined}>
+                        {item.name}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <Disclosure.Panel className='sm:hidden'>
+            <div className='space-y-1 px-2 pt-2 pb-3'>
+              {navigation.map((item) => (
+                <Disclosure.Button
+                  key={item.name}
+                  as='a'
+                  href={item.href}
+                  className={classNames(
+                    item.current
+                      ? 'bg-gray-900 text-white'
+                      : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                    'block px-3 py-2 rounded-md text-base font-medium'
+                  )}
+                  aria-current={item.current ? 'page' : undefined}>
+                  {item.name}
+                </Disclosure.Button>
+              ))}
+            </div>
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
+  );
+}
